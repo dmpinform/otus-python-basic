@@ -9,6 +9,7 @@ def power_numbers(*numbers):
     функция, которая принимает N целых чисел,
     и возвращает список квадратов этих чисел
     """
+    print("test push github")
     numbers = [*numbers]
     listn = list(num**2 for num in numbers if str(num).isdigit())
     if len(listn) != len(numbers):
