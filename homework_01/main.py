@@ -4,16 +4,16 @@
 """
 
 
-def power_numbers(numbers):
+def power_numbers(*numbers):
     """
     функция, которая принимает N целых чисел,
     и возвращает список квадратов этих чисел
     """
+    numbers = [*numbers]
     listn = list(num**2 for num in numbers if str(num).isdigit())
     if len(listn) != len(numbers):
         print(f'Error int value in list: {numbers}')
     return listn
-
 
 # filter types
 ODD = "odd"
