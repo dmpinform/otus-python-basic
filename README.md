@@ -1,7 +1,7 @@
 # Hello!
 My name is Dmitryi Pletnev. 
 I'm interested in Python and its application for working with data.
-This repository will host homework по курсу PythonBasic
+This repository will host homework by PythonBasic course.
 
 ## Why do I need Python
   - data collection and analysis: parsing, api, sites, social networks
