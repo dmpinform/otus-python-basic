@@ -1,20 +1,20 @@
-# Всем привет!
-Меня зовут Плетнев Дмитрий.
-Мне интересен Python и его примение для работы с данными.
+# Hello!
+My name is Dmitryi Pletnev. 
+I'm interested in Python and its application for working with data.
+This repository will host homework по курсу PythonBasic
 
-## Мои цели
-Разработка решений по следующим направлениям:
-  сбор и анализ данных: парсинг, api, сайты, соцсети
-  визуализация данных
-  алгоритмическая торговля
-  боты telegram, instagram, vk
-  машинное обучение
-  текстовый анализ (nlp)
-  классификация данных
-  нейронные сети
-  поиск открытых источников информации и работа с ними
+## Why do I need Python
+  - data collection and analysis: parsing, api, sites, social networks
+  - data visualization
+  - algorithmic trading
+  - bots telegram, instagram, vk
+  - machine learning
+  - text analysis (nlp)
+  - data classification
+  - neural networks
+  - search for open sources of information and work with them
 
-## Инструменты для выполнения домашних заданий по курсу Python Basic
+## Tools
 - PyCharm
 - Git
 - SublimeText
