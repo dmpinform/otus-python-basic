@@ -18,7 +18,7 @@ class CustomUser():
 	def add_manual_pets(self, name, breed, year, mpet):
 			pet = mpet(name, breed, year, self.user)
 			self.add_pet(pet)
-			self.user.pets=self.pets
+			self.user.pets = self.pets
 
 	def add_pet(self, pet):
 		self.pets.append(pet)
