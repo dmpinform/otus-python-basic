@@ -1,5 +1,5 @@
 from random import randrange
-import user
+
 
 
 class Pet:

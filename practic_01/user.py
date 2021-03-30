@@ -1,4 +1,4 @@
-import pet
+from pet import PetRandom
 
 class User:
 	
@@ -22,3 +22,15 @@ class User:
 	@password.getter
 	def password(self):
 		return self.__password
+
+	def add_random_pets(self,count_pets):
+			for i in range(0,count_pets):
+				pet = PetRandom(self).mypet
+				self._add_pet(pet)
+
+	def add_manual_pets(self, name, breed, year, mpet):
+			pet = mpet(name, breed, year, self)
+			self._add_pet(pet)
+
+	def _add_pet(self, pet):
+		self.pets.append(pet)
