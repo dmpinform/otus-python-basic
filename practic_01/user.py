@@ -4,11 +4,11 @@ class User:
 	
 	def __init__(self, name, sname, post, tnumber, password, pets):
 		self.__password=password
-		self.name = name
-		self.sname = sname
-		self.post = post
-		self.tnumber = tnumber
-		self.pets = pets
+		self.name=name
+		self.sname=sname
+		self.post=post
+		self.tnumber=tnumber
+		self.pets=pets
 
 	def __str__(self):
 		return f'{self.name} {self.sname }, {self.post}, telephone: {self.tnumber},  Pets : {self.pets}'

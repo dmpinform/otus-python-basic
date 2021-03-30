@@ -17,27 +17,27 @@ class Pet:
 
 class Cat(Pet):
 	def __init__(self,*args):
-		self.type = 'CAT'
+		self.type='CAT'
 		super().__init__(*args)
 class Dog(Pet):
 	def __init__(self,*args):
-		self.type = 'DOG'
+		self.type='DOG'
 		super().__init__(*args)
 
 class Hamster(Pet):
 	def __init__(self,*args):
-		self.type = 'HAMSTER'
+		self.type='HAMSTER'
 		super().__init__(*args)
 
 class PetRandom():
-	NAMES = ['Bobik','Mysa','Sharik','Bagira']
+	NAMES=['Bobik','Mysa','Sharik','Bagira']
 	BREED = ['Shpic','Dog','Laika','Buldog']
-	YEAR = ['1985','2000','2010','2020']
-
+	YEAR=['1985','2000','2010','2020']
+	MAX=4
 	KIND=[Cat,Dog,Hamster]
 
 	def __init__(self,user):
 		self.name = self.NAMES[randrange(1,4)]
 		self.breed = self.BREED[randrange(1,4)]
 		self.year = self.YEAR[randrange(1,4)]
-		self.mypet = self.KIND[randrange(0,3)](self.name,self.breed,self.year,user)
+		self.mypet=self.KIND[randrange(0,3)](self.name,self.breed,self.year,user)
