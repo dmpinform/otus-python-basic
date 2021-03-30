@@ -1,7 +1,5 @@
 from random import randrange
 
-
-
 class Pet:
 	def __init__(self, name, breed, year, user):
 		self.name = name 
