@@ -1,19 +1,14 @@
 from abc import ABC
-import sys
-import os
+from homework_02.exceptions import LowFuelError, NotEnoughFuel
 
-PACKAGE_PARENT = '..'
-SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
-sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
-
-from homework_02.exceptions import LowFuelError,NotEnoughFuel,CargoOverload
 
 class Vehicle(ABC):
+
     def __init__(self, weight=0, fuel=10, fuel_consumption=1):
         self.weight = weight
         self.fuel = fuel
         self.fuel_consumption = fuel_consumption
-        self.started=False
+        self.started = False
 
     def start(self):
         if not self.started:
