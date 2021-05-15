@@ -9,7 +9,6 @@
 """
 
 import os
-import asyncpg
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import (
     declarative_base,
@@ -25,7 +24,7 @@ from sqlalchemy import(
 
 #PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI")
 PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or \
-              "postgresql://postgres:foranadm@localhost:5432/postgres"
+              "postgresql+asyncpg://postgres:foranadm@localhost:5432/postgres"
 
 engine = create_async_engine(PG_CONN_URI, echo=True)
 Base = declarative_base(bind=engine)
