@@ -21,6 +21,7 @@ from models import (
     async_session,
 )
 import asyncio
+import asyncpg
 
 
 async def create_tables():
