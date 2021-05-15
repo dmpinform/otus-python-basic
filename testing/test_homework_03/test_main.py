@@ -11,7 +11,6 @@ homework = pytest.importorskip("homework_03")
 module_models = homework.models
 module_main = homework.main
 module_jsonplaceholder_requests = homework.jsonplaceholder_requests
-
 pytestmark = pytest.mark.asyncio
 
 
