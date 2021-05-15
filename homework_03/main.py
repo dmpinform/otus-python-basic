@@ -12,14 +12,56 @@
   (используйте полученные из запроса данные, передайте их в функцию для добавления в БД)
 - закрытие соединения с БД
 """
+from jsonplaceholder_requests import get_date_from_url
+from models import (
+    engine,
+    Base,
+    User,
+    Post,
+    async_session,
+)
+import asyncio
+
+
+async def create_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+
+
+async def create_users(users):
+    async with async_session() as session:
+        async with session.begin():
+            for user in users:
+                session.add(User(
+                            id=user["id"],
+                            name=user["name"],
+                            username=user["username"],
+                            email=user["email"]))
+
+
+async def create_posts(posts):
+    async with async_session() as session:
+        async with session.begin():
+            for post in posts:
+                session.add(Post(
+                                id=post["id"],
+                                userid=post["userId"],
+                                title=post["title"],
+                                body=post["body"]))
 
 
 async def async_main():
-    pass
+    await create_tables()
+    users, posts = await get_date_from_url()
+    await create_users(users)
+    await create_posts(posts)
+    await engine.dispose()
 
 
 def main():
-    pass
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    asyncio.run(async_main())
 
 
 if __name__ == "__main__":

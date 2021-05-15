@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 import requests
+from loguru import logger
 import json
 
 # async def main():
@@ -14,11 +15,17 @@ import json
 #
 # asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 # asyncio.run(main())
+logger.info("Start")
 
-response = requests.get("https://jsonplaceholder.typicode.com/todos")
+response = requests.get("https://jsonplaceholder.typicode.com/users")
 todos = response.json()
 
-print(todos[0]["userId"])
+response = requests.get("https://jsonplaceholder.typicode.com/posts")
+todos1 = response.json()
+
+logger.info("Finish")
+
+#print(todos[0]["userId"])
 
 # json_object = json.loads(str(users))
 # pairs = json_object.items()
