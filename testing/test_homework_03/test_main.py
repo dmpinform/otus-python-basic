@@ -1,6 +1,5 @@
 import pytest
 import requests
-import asyncpg
 from faker import Faker
 
 from sqlalchemy import select
