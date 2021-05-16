@@ -6,7 +6,7 @@ attrs==21.2.0
 certifi==2020.12.5
 chardet==4.0.0
 colorama==0.4.4
-dataclasses==0.8
+dataclasses==0.6
 greenlet==1.1.0
 idna==2.10
 iniconfig==1.1.1
