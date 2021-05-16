@@ -18,7 +18,7 @@ from models import (
     Base,
     User,
     Post,
-    async_session,
+    Session,
 )
 import asyncio
 
@@ -30,7 +30,7 @@ async def create_tables():
 
 
 async def create_users(users):
-    async with async_session() as session:
+    async with Session() as session:
         async with session.begin():
             for user in users:
                 session.add(User(
@@ -41,12 +41,12 @@ async def create_users(users):
 
 
 async def create_posts(posts):
-    async with async_session() as session:
+    async with Session() as session:
         async with session.begin():
             for post in posts:
                 session.add(Post(
                                 id=post["id"],
-                                userid=post["userId"],
+                                user_id=post["userId"],
                                 title=post["title"],
                                 body=post["body"]))
 

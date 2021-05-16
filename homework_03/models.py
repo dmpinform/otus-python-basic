@@ -22,13 +22,13 @@ from sqlalchemy import(
     ForeignKey
 )
 
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI")
-# PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or \
-#               "postgresql+asyncpg://postgres:foranadm@localhost:5432/postgres"
+
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or \
+              "postgresql+asyncpg://postgres:foranadm@localhost:5432/postgres"
 
 engine = create_async_engine(PG_CONN_URI, echo=True)
 Base = declarative_base(bind=engine)
-async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+Session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
 class User(Base):
@@ -43,7 +43,7 @@ class User(Base):
 class Post(Base):
     __tablename__ = "posts"
     id = Column(Integer, primary_key=True)
-    userid = Column(Integer, ForeignKey(User.id), nullable=False)
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
     title = Column(String, default="", server_default="")
     body = Column(String, default="", server_default="")
     user = relationship("User", back_populates="posts")
