@@ -7,17 +7,20 @@
 {% block body %}
     <figure class="text-center">
       <blockquote class="blockquote">
-        <p>Примеры </p>
-          <div class="container">
+          <div class="container my-md-5">
+             <p>Мир японских кроссвордов. Рисуй, фотографируй, конвертируй и разгадывай. </p>
           <div class="row">
-            <div class="col">
-             <img src="/img/img_001.png" class="img-fluid" alt="...">
+            <div class="col border-0" >
+                <span class="badge rounded-top bg-success">1</span>
+             <img src="{{url_for('static', filename='img/img_001.png')}}" class="img-fluid" alt="...">
             </div>
             <div class="col">
-             <img src="/img/img_002.png" class="img-fluid" alt="...">
+                <span class="badge rounded-top bg-success">2</span>
+             <img src="{{url_for('static', filename='img/img_004.png')}}" class="img-fluid" alt="...">
             </div>
               <div class="col">
-             <img src="/img/img_003.png" class="img-fluid" alt="...">
+                  <span class="badge rounded-top bg-success">3</span>
+             <img src="{{url_for('static', filename='img/img_003.png')}}" class="img-fluid" alt="...">
             </div>
            </div>
           </div>
@@ -27,3 +30,4 @@
       </figcaption>
     </figure>
 {% endblock %}
+
