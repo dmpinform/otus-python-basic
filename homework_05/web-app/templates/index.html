@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block body %}
+    <figure class="text-center">
+      <blockquote class="blockquote">
+          <div class="container my-md-5">
+             <p>Мир японских кроссвордов. Рисуй, фотографируй, конвертируй и разгадывай. </p>
+          <div class="row">
+            <div class="col border-0" >
+                <span class="badge rounded-top bg-success">1</span>
+             <img src="{{url_for('static', filename='img/img_001.png')}}" class="img-fluid" alt="...">
+            </div>
+            <div class="col">
+                <span class="badge rounded-top bg-success">2</span>
+             <img src="{{url_for('static', filename='img/img_004.png')}}" class="img-fluid" alt="...">
+            </div>
+              <div class="col">
+                  <span class="badge rounded-top bg-success">3</span>
+             <img src="{{url_for('static', filename='img/img_003.png')}}" class="img-fluid" alt="...">
+            </div>
+           </div>
+          </div>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        Кто владеет информацией <cite title="Source Title">владеет миром</cite>
+      </figcaption>
+    </figure>
+{% endblock %}
+
