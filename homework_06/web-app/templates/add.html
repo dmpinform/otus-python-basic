@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Добавить фото
+{% endblock %}
+
+{% block body %}
+    <div class="container my-md-5">
+    <figure  class="text-center">
+      <blockquote class="blockquote">
+        <p>Добавить фотографию </p>
+              <form method="post">
+           <div>
+               <label id="label-input-product-name" for="input-product-name">Название фото:</label>
+                   <input
+            id="input-product-name"
+            name="product-name"
+            type="text"
+            placeholder="Человек"
+            required
+            >
+           </div>
+             <div>
+            <label id="label-input-product-description" for="input-product-description">Описание фото:</label>
+            <input
+            id="input-product-description"
+            name="product-description"
+            type="text"
+            placeholder="Занятие спортом летом"
+            required
+            >
+             </div>
+            <button type="submit">Add</button>
+    </form>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        Кто владеет информацией <cite title="Source Title">владеет миром</cite>
+      </figcaption>
+    </figure>
+     </div>
+{% endblock %}
