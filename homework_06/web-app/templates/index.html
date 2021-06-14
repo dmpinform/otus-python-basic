@@ -8,12 +8,13 @@
  <div>
     <h1>Список фотографий в базе данных:</h1>
     {% if not products %}
-      No products yet
+      Пока фоток нет
     {% else %}
         {% for product in products %}
           <div>
               <span class="badge rounded-top bg-success">{{ product.id }}</span>
-              {{ product.name }}
+              {{ product.name }} -
+              {{ product.description }}
           </div>
         {% endfor %}
     {% endif %}
@@ -22,7 +23,7 @@
   <div>
     <a
       class="text-decoration-none"
-      href="{{ url_for('products_app.add') }}">Add new product</a>
+      href="{{ url_for('products_app.add') }}">Добавить новую</a>
   </div>
 
     <figure class="text-center">
