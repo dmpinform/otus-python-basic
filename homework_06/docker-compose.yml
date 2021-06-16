@@ -7,13 +7,13 @@ services:
       dockerfile: ./Dockerfile
 #    command: flask run --port=3000
     environment:
-      SQLALCHEMY_DATABASE_URI: postgresql://user:password@pg:5432/app
+      SQLALCHEMY_DATABASE_URI: postgresql://user:password@postgres:5432/app
     ports:
       - 5000:5000
     depends_on:
-      - pg
+      - postgres
 
-  pg:
+  postgres:
     image: postgres:12
     environment:
       POSTGRES_DB: "app"
@@ -21,5 +21,6 @@ services:
       POSTGRES_PASSWORD: "password"
     volumes:
       - ./pg-data:/var/lib/postgresql/data
+    restart: always
     ports:
       - 5416:5432
