@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block title %}
-{{picture.name}}
+    <h5>{{object.name}}</h5>
+    <img src="{{object.content.url}}" width="100px">
 {% endblock %}
 
 {% block content %}
-        {{picture.pk}}
+        {{object.pk}}
         <form method="post">
             {% csrf_token %}
-            <button type="submit"> Сохранить </button>
+            <a href="/" class="button">Мои рисунки</a>
         </form>
 {% endblock %}

@@ -5,17 +5,19 @@
 
 {% block content %}
    <ul>
-       {% for item in pictures %}
+       {% for item in object_list %}
        <li>
            <img src="{{item.content.url}}" width="150px">
 
-           <a href="/upgrade/?picture_id={{item.pk}}">{{item.name}}</a>
+           <a href="/picpart/{{ item.pk }}">{{item.name}}</a>
        </li>
        {% endfor %}
    </ul>
+
         <form method="post">
             {% csrf_token %}
-            <button type="submit"> Сохранить </button>
+            <button class="btn btn-primary" type="submit"> Сохранить </button>
         </form>
+
 {% endblock %}
 

@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from picpart.views import index_view, upgrade_view
+from picpart.views import index_view, detail_view, about_view, PictureListView, PictureDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index_view),
-    path('upgrade/', upgrade_view),
-
+    path('', PictureListView.as_view()),
+    path('picpart/<int:pk>/', PictureDetailView.as_view()),
+    path('about/', about_view),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
