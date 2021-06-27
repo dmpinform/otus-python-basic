@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}
+{{picture.name}}
+{% endblock %}
+
+{% block content %}
+        {{picture.pk}}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit"> Сохранить </button>
+        </form>
+{% endblock %}

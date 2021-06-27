@@ -6,5 +6,17 @@
 </head>
 <body>
    MY PROJECT NAME "PicPart"
+   <ul>
+       {% for item in pictures %}
+       <li>
+           {{item.name}}
+       </li>
+       {% endfor %}
+   </ul>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit"> Сохранить </button>
+        </form>
 </body>
 </html>

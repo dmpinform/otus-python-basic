@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+Главная
+{% endblock %}
+
+{% block content %}
+   <ul>
+       {% for item in pictures %}
+       <li>
+           <img src="{{item.content.url}}" width="150px">
+
+           <a href="/upgrade/?picture_id={{item.pk}}">{{item.name}}</a>
+       </li>
+       {% endfor %}
+   </ul>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit"> Сохранить </button>
+        </form>
+{% endblock %}
+

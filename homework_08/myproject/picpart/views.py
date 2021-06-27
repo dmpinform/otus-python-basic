@@ -16,5 +16,12 @@ def index_view(request):
 
     return render(request, 'picpart/index.html', {'pictures': pictures})
 
+
+def upgrade_view(request):
+    picture_id = request.GET["picture_id"]
+    picture = Pictures.objects.get(pk=picture_id)
+    return render(request, 'picpart/upgrade.html', {'picture': picture})
+
+
 def load_image_view(request):
     return render(request, 'шаблон')
