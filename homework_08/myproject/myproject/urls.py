@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from picpart.views import index_view, detail_view, about_view, PictureListView, PictureDetailView
+from picpart.views import index_view, detail_view, about_view, PictureListView, \
+    PictureDetailView, PictureUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PictureListView.as_view()),
     path('picpart/<int:pk>/', PictureDetailView.as_view()),
+    path('picpart/edit/', PictureUpdateView.as_view()),
     path('about/', about_view),
 ]
 

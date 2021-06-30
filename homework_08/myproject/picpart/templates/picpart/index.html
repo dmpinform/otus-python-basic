@@ -4,8 +4,15 @@
 {% endblock %}
 
 {% block content %}
+
+      <div class="wrapper border-0 border-secondary exmp1">
+        <a href="/picpart/edit">
+          <img src="/media/picpart/newimage.png" alt="">
+        </a>
+      </div>
+
            {% for item in object_list %}
-                <div class="wrapper exmp1">
+                <div class="wrapper border-1 exmp1">
                    <a href="/picpart/{{ item.pk }}">
                       <img src="{{item.content.url}}" alt="">
                    </a>

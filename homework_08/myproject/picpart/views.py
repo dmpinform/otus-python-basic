@@ -3,8 +3,8 @@ from django.shortcuts import render
 from .models import Pictures, PictureUpgrade
 from .tasks import save_pictures_task
 from django.core.mail import send_mail
-from django.views.generic import ListView, DetailView
-
+from django.views.generic import ListView, DetailView, CreateView
+from .forms import PictureForm
 
 '''На классах CBV generic'''
 
@@ -20,6 +20,13 @@ class PictureDetailView(DetailView):
     model = Pictures
     template_name = 'picpart/detail.html'
 
+
+class PictureUpdateView(CreateView):
+    model = Pictures
+    template_name = 'picpart/edit.html'
+    success_url = '/'
+    fields = '__all__'
+    #form_class = PictureForm
 
 '''На функциях'''
 
