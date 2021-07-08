@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    <img src="{{object.content.url}}" width="100px">
+{% endblock %}
+
+{% block content %}
+    <div><h5>{{object.name}} ID = {{object.pk}}</h5></div>
+        Вы уверены?
+        <form method="post">
+            {% csrf_token %}
+            <a href="/" class="button">К моим рисункам</a>
+             <button class="btn btn-danger" type="submit">Да</button>
+        </form>
+{% endblock %}
