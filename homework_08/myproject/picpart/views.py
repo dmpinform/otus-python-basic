@@ -62,14 +62,28 @@ class PictureUpgradeCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.picture = self.picture
+        picture = Pictures.objects.filter(id=self.picture.pk)
+
+        # в обработчик передать -------
+        form.instance.content = picture.first().content
+        # -----------------------------
+
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        # obj = form.instance or self.object
-        # переход на предыдущую
-        return reverse("detail", kwargs={'pk': self.picture.pk})
-        # переход на текущую
-        # return self.request.path
+        # переход на все картинки
+        # return reverse("detail", kwargs={'pk': self.picture.pk})
+        # переход к текущей
+        return reverse("picture_preview", kwargs={'pk': self.object.id})
+
+
+class PicturePreviewDetailView(UpdateView):
+    model = PictureUpgrade
+    template_name = 'picpart/preview_picture.html'
+    form_class = PictureFormUpgrade
+
+    def get_success_url(self, **kwargs):
+        return reverse("picture_preview", kwargs={'pk': self.object.id})
 
 
 '''На функциях'''

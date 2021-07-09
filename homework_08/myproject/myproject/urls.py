@@ -18,7 +18,8 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from picpart.views import index_view, detail_view, about_view, PictureListView, \
-    PictureDetailView, PictureUpdateView, PictureDeleteView, PictureCreateView, PictureUpgradeCreateView
+    PictureDetailView, PictureUpdateView, PictureDeleteView, PictureCreateView, PictureUpgradeCreateView, \
+    PicturePreviewDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +30,8 @@ urlpatterns = [
     path('picpart/create/', PictureCreateView.as_view()),
 
     path('picpart/preview/create/<int:picture_id>/', PictureUpgradeCreateView.as_view(), name="upgrade"),
+
+    path('picpart/preview_picture/<int:pk>/', PicturePreviewDetailView.as_view(), name="picture_preview"),
 
     path('about/', about_view),
 ]

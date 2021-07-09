@@ -24,13 +24,14 @@ class PictureFormUpgrade(forms.ModelForm):
                            widget=forms.TextInput(attrs={'class': 'form-control'}),
                            label='',
                            )
-
-    content = forms.ImageField(help_text='',
-                               widget=forms.FileInput(attrs={'class': 'form-control'}),
-                               label='',
-                               )
+    #
+    # content = forms.ImageField(help_text='',
+    #                            widget=forms.FileInput(attrs={'class': 'form-control'}),
+    #                            label='',
+    #                            )
 
     class Meta:
         model = PictureUpgrade
-        fields = ('name', 'content', 'size_part', 'color_limit', 'width')
+        # fields = ('name', 'content', 'size_part', 'color_limit', 'width')
+        fields = ('name', 'size_part', 'color_limit', 'width')
 

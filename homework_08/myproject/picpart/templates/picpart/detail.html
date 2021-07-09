@@ -20,7 +20,7 @@
      <div>
          {% for pictupd in object.pictureupgrade_set.all %}
              <div class="wrapper border-1 exmp1">
-               <a href="#">
+               <a href="/picpart/preview_picture/{{ pictupd.pk }}">
                   <img src="{{ pictupd.content.url }}" alt="">
                </a>
            </div>
