@@ -1,25 +1,33 @@
 {% extends "base.html" %}
 {% block title %}
-  {{object.name}}
+
 {% endblock %}
 
 {% block content %}
-<div class="bg-light p-5 rounded">
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        <hr>
-<!--        {% for field in form %}-->
-<!--            {{field.name}}-->
-<!--            <div>-->
-<!--                ...-->
-<!--            </div>-->
-<!--            <p></p>-->
-<!--            {{field}}-->
-<!--        {% endfor %}-->
-        <button class="btn btn-outline-dark btn-sm px-2 py-0" type="submit">Сохранить</button>
-        <a href="/picpart/{{ object.picture.id }}" class="button">Отменить</a>
-    </form>
-    <img src="{{object.content.url}}" width="600px" alt="">
+<div class="d-flex justify-content-center">
+   <div class="d-flex flex-row">
+        <div class="p-2">
+             <!--  <div><h6>{{object.name}}</h6></div> -->
+            <img src="{{object.content.url}}" width="600px" alt="">
+        </div>
+   <div class="p-2">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <hr>
+    <!--        {% for field in form %}-->
+    <!--            {{field.name}}-->
+    <!--            <div>-->
+    <!--                ...-->
+    <!--            </div>-->
+    <!--            <p></p>-->
+    <!--            {{field}}-->
+    <!--        {% endfor %}-->
+            <button class="btn btn-outline-dark btn-sm px-2 py-0" type="submit">Сохранить</button>
+            <a href="/picpart/{{ object.picture.id }}" class="button">Назад</a>
+            <a href="/picpart/delete_upgrade/{{object.pk}}/" class="button">Удалить</a>
+        </form>
+   </div>
+  </div>
 </div>
 {% endblock %}

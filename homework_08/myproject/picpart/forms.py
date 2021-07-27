@@ -33,5 +33,5 @@ class PictureFormUpgrade(forms.ModelForm):
     class Meta:
         model = PictureUpgrade
         # fields = ('name', 'content', 'size_part', 'color_limit', 'width')
-        fields = ('name', 'size_part', 'color_limit', 'width')
+        fields = ('name', 'size_part', 'color_limit', 'width', 'hard')
 

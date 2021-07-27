@@ -19,13 +19,17 @@ from django.conf.urls.static import static
 from django.conf import settings
 from picpart.views import index_view, detail_view, about_view, PictureListView, \
     PictureDetailView, PictureUpdateView, PictureDeleteView, PictureCreateView, PictureUpgradeCreateView, \
-    PicturePreviewDetailView
+    PicturePreviewDetailView, PictureUpgradeDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PictureListView.as_view()),
     path('picpart/<int:pk>/', PictureDetailView.as_view(), name="detail"),
     path('picpart/delete/<int:pk>/', PictureDeleteView.as_view()),
+
+    path('picpart/delete_upgrade/<int:pk>/', PictureUpgradeDeleteView.as_view()),
+
+
     path('picpart/edit/<int:pk>/', PictureUpdateView.as_view()),
     path('picpart/create/', PictureCreateView.as_view()),
 
