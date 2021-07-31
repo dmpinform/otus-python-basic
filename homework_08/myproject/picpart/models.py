@@ -23,7 +23,9 @@ class PictureUpgrade(models.Model):
     picture = models.ForeignKey(Pictures, on_delete=models.CASCADE)
     tune = models.CharField(max_length=100)
     size_part = models.PositiveSmallIntegerField(default=12, blank=False, null=False)
-    color_limit = models.PositiveSmallIntegerField(default=120, blank=False, null=False)
-    width = models.PositiveSmallIntegerField(default=800, blank=False, null=False)
+    color_limit = models.PositiveSmallIntegerField(default=120, blank=False, null=False,
+                                                   validators=[MaxValueValidator(255), MinValueValidator(0)])
+    width = models.PositiveSmallIntegerField(default=800, blank=False, null=False,
+                                             validators=[MaxValueValidator(2000), MinValueValidator(100)])
     hard = models.PositiveSmallIntegerField(default=0, blank=False, null=False,
                                             validators=[MaxValueValidator(100), MinValueValidator(0)])

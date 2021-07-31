@@ -1,10 +1,11 @@
 @import "styles.css";
 /*https://www.tune-it.ru/web/leksa/blog/-/blogs/1996258*/
 
+
 .wrapper {
   width: 200px;
   height: 200px;
-  border: 1px solid #515151;
+  border: 1px solid #E3C4A6;
   margin: 1em 2em;
   float: left;
 }

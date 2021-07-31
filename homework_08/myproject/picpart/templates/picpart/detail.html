@@ -1,30 +1,57 @@
 {% extends "base.html" %}
 {% block title %}
-    <img src="{{object.content.url}}" width="100px">
+     <br>
+    <div>
+         <a href="/" class="button"><span class="badge bg-secondary">К моим рисункам </span></a>
+         <a href="/picpart/delete/{{object.pk}}/" class="button"><span class="badge bg-secondary">Удалить</span></a>
+         <a href="/picpart/edit/{{object.pk}}/" class="button"><span class="badge bg-secondary">Изменить </span></a>
+    </div>
+    <br>
 {% endblock %}
 
 {% block content %}
-    <div>
-        <h5>{{object.name}} ID = {{object.pk}}</h5>
-         <a href="/" class="button">К моим рисункам</a>
-         <a href="/picpart/delete/{{object.pk}}/" class="button">Удалить</a>
-         <a href="/picpart/edit/{{object.pk}}/" class="button">Изменить</a>
-    </div>
 
-     <div class="wrapper border-0 border-secondary exmp1">
+
+<div class="container w-100">
+     <div class="row">
+
+  <div class="col-md-6 col-lg-3">
+
+      <div class="wrapper border-0 border-secondary exmp1">
         <a href="/picpart/preview/create/{{object.pk}}/">
-          <img src="/media/picpart/newimage.png" alt="">
+           <img src="{{object.content.url}}" width="200px">
         </a>
       </div>
 
-     <div>
+       <div class="container">
+                 <ul class="list-inline">
+                     <a href="/picpart/preview/create/{{object.pk}}/" class="button"><span class="badge bg-dark">Создать</span></a>
+                </ul>
+       </div>
+
+    </div>
+
+
          {% for pictupd in object.pictureupgrade_set.all %}
-             <div class="wrapper border-1 exmp1">
+              <div class="col-md-6 col-lg-3">
+             <div class="wrapper border-1 exmp1  m-3">
                <a href="/picpart/preview_picture/{{ pictupd.pk }}">
                   <img src="{{ pictupd.content.url }}" alt="">
                </a>
-           </div>
-         {% endfor %}
-     </div>
+             </div>
 
+             <div class="container">
+                 <ul class="list-inline">
+                  <li class="list-inline-item" style="color:#827575"> Ячейка: {{pictupd.size_part}}</li>
+                  <li class="list-inline-item" style="color:#827575"> Сложность: {{pictupd.hard}}</li>
+                  <li class="list-inline-item" style="color:#827575"> Ширина: {{pictupd.width}}</li>
+                  <li class="list-inline-item" style="color:#827575"> Порог: {{pictupd.color_limit}}</li>
+                </ul>
+            </div>
+
+
+          </div>
+         {% endfor %}
+    </div>
+    </div>
 {% endblock %}

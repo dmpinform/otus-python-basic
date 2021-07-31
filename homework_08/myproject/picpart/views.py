@@ -15,6 +15,13 @@ from .tasks import save_pictures_task
 from django.core.mail import send_mail
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from .forms import PictureForm, PictureFormUpgrade
+from django.template.defaulttags import register
+
+
+@register.filter
+def get_range(value):
+    return range(value)
+
 
 '''На классах CBV generic'''
 
@@ -57,6 +64,9 @@ class PictureUpgradeDeleteView(DeleteView):
     model = PictureUpgrade
     template_name = 'picpart/delete_confirm.html'
     success_url = '/'
+
+    def get_success_url(self, **kwargs):
+        return reverse("detail", kwargs={'pk': self.object.picture.id})
 
 
 def gen_form(form):
