@@ -29,3 +29,4 @@ class PictureUpgrade(models.Model):
                                              validators=[MaxValueValidator(2000), MinValueValidator(100)])
     hard = models.PositiveSmallIntegerField(default=0, blank=False, null=False,
                                             validators=[MaxValueValidator(100), MinValueValidator(0)])
+    favorite = models.NullBooleanField(default=False, blank=True, null=True)

@@ -10,6 +10,14 @@
   float: left;
 }
 
+.wrapper_like {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #df8135;
+  margin: 1em 2em;
+  float: left;
+}
+
 .exmp1 {
   overflow: hidden;
   display: flex;

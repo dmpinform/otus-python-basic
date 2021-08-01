@@ -34,11 +34,18 @@
 
          {% for pictupd in object.pictureupgrade_set.all %}
               <div class="col-md-6 col-lg-3">
-             <div class="wrapper border-1 exmp1  m-3">
+
+             {% if pictupd.favorite %}
+                <div class="wrapper_like border-2 exmp1 m-3">
+             {% else %}
+                <div class="wrapper border-1 exmp1  m-3">
+              {% endif %}
+
                <a href="/picpart/preview_picture/{{ pictupd.pk }}">
                   <img src="{{ pictupd.content.url }}" alt="">
                </a>
              </div>
+
 
              <div class="container">
                  <ul class="list-inline">
@@ -46,6 +53,7 @@
                   <li class="list-inline-item" style="color:#827575"> Сложность: {{pictupd.hard}}</li>
                   <li class="list-inline-item" style="color:#827575"> Ширина: {{pictupd.width}}</li>
                   <li class="list-inline-item" style="color:#827575"> Порог: {{pictupd.color_limit}}</li>
+                  <li class="list-inline-item" style="color:#827575">
                 </ul>
             </div>
 
@@ -55,3 +63,4 @@
     </div>
     </div>
 {% endblock %}
+

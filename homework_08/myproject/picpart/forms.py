@@ -51,6 +51,13 @@ class PictureFormUpgrade(forms.ModelForm):
                               initial=0
                               )
 
+    favorite = forms.BooleanField(help_text='Избранное',
+                                  widget=forms.CheckboxInput(attrs={'class': 'checkbox-inline'}),
+                                  label='',
+                                  initial=False,
+                                  required=False
+                                  )
+
     #
     # content = forms.ImageField(help_text='',
     #                            widget=forms.FileInput(attrs={'class': 'form-control'}),
@@ -59,4 +66,4 @@ class PictureFormUpgrade(forms.ModelForm):
 
     class Meta:
         model = PictureUpgrade
-        fields = ('name', 'size_part', 'color_limit', 'width', 'hard')
+        fields = ('name', 'size_part', 'color_limit', 'width', 'hard', 'favorite')

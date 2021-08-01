@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}
+    <div class="m-2">
+        <h5> Избранное </h5>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container w-100">
+     <div class="row">
+
+         {% for pictupd in object_list%}
+
+             {% if pictupd.favorite %}
+
+             <div class="col-md-6 col-lg-3">
+                <div class="wrapper border-1 exmp1  m-3">
+               <a href="/picpart/preview_picture/{{ pictupd.pk }}">
+                  <img src="{{ pictupd.content.url }}" alt="">
+               </a>
+             </div>
+
+             <div class="container">
+                 <ul class="list-inline">
+                  <li class="list-inline-item" style="color:#827575"> Ячейка: {{pictupd.size_part}}</li>
+                  <li class="list-inline-item" style="color:#827575"> Сложность: {{pictupd.hard}}</li>
+                  <li class="list-inline-item" style="color:#827575"> Ширина: {{pictupd.width}}</li>
+                  <li class="list-inline-item" style="color:#827575"> Порог: {{pictupd.color_limit}}</li>
+                  <li class="list-inline-item" style="color:#827575">
+                </ul>
+            </div>
+          </div>
+
+         {% endif %}
+
+         {% endfor %}
+
+    </div>
+        </div>
+{% endblock %}
+

@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from picpart.views import index_view, detail_view, about_view, PictureListView, \
     PictureDetailView, PictureUpdateView, PictureDeleteView, PictureCreateView, PictureUpgradeCreateView, \
-    PicturePreviewDetailView, PictureUpgradeDeleteView
+    PicturePreviewDetailView, PictureUpgradeDeleteView, add_to_favorite_list, FavoriteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +29,6 @@ urlpatterns = [
 
     path('picpart/delete_upgrade/<int:pk>/', PictureUpgradeDeleteView.as_view()),
 
-
     path('picpart/edit/<int:pk>/', PictureUpdateView.as_view()),
     path('picpart/create/', PictureCreateView.as_view()),
 
@@ -37,7 +36,12 @@ urlpatterns = [
 
     path('picpart/preview_picture/<int:pk>/', PicturePreviewDetailView.as_view(), name="picture_preview"),
 
+    path('favorite/', FavoriteView.as_view(), name="favorite"),
+
     path('about/', about_view),
+
+    # path('add-to-wishlist/', add_to_favorite_list, name='add_to_favorite'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

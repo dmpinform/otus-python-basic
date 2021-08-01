@@ -1,4 +1,3 @@
-
 from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import Http404
@@ -60,6 +59,12 @@ class PictureDeleteView(DeleteView):
     success_url = '/'
 
 
+class FavoriteView(ListView):
+    model = PictureUpgrade
+    template_name = 'picpart/favorite.html'
+    success_url = '/'
+
+
 class PictureUpgradeDeleteView(DeleteView):
     model = PictureUpgrade
     template_name = 'picpart/delete_confirm.html'
@@ -79,23 +84,23 @@ def gen_form(form):
     hard = form.instance.hard
     image = getimage.img(width, intcolor=int_color, cl=size_part, byte_image=BytesIO(file_content), hard=hard)
 
-    #BytesIO(image).getvalue()
+    # BytesIO(image).getvalue()
 
     image = Image.open(BytesIO(image))
 
     buffer = BytesIO()
     image.save(fp=buffer, format='JPEG')
     pillow_image = ContentFile(buffer.getvalue())
-    #image.show()
+    # image.show()
 
     form.instance.content.save("name_img", InMemoryUploadedFile(
-         pillow_image,       # file
-         None,               # field_name
-         "name_img",           # file name
-         'image/png',       # content_type
-         pillow_image.tell,  # size
-         None)               # content_type_extra
-    )
+        pillow_image,  # file
+        None,  # field_name
+        "name_img",  # file name
+        'image/png',  # content_type
+        pillow_image.tell,  # size
+        None)  # content_type_extra
+                               )
     return form
 
 
@@ -131,9 +136,18 @@ class PicturePreviewDetailView(UpdateView):
     def form_valid(self, form):
         return super().form_valid(gen_form(form))
 
-
     def get_success_url(self, **kwargs):
         return reverse("picture_preview", kwargs={'pk': self.object.id})
+
+
+# добавить в фильр пользователя
+# https://question-it.com/questions/1009945/dobavlenie-tovarov-v-spisok-zhelanij-dzhango
+
+def add_to_favorite_list(request):
+    if request.is_ajax() and request.POST and 'attr_id' in request.POST:
+        picture = PictureUpgrade.objects.get(pk=int(request.POST['attr_id']))
+        if picture.exists() and picture.favorite == 0:
+            picture.first = 1
 
 
 '''На функциях'''
@@ -157,6 +171,3 @@ def detail_view(request):
 
 def about_view(request):
     return render(request, 'picpart/about.html')
-
-
-
