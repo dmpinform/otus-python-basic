@@ -19,7 +19,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 from picpart.views import index_view, detail_view, about_view, PictureListView, \
     PictureDetailView, PictureUpdateView, PictureDeleteView, PictureCreateView, PictureUpgradeCreateView, \
-    PicturePreviewDetailView, PictureUpgradeDeleteView, add_to_favorite_list, FavoriteView
+    PicturePreviewDetailView, PictureUpgradeDeleteView, register, FavoriteView, UserCreateView, AuthView,\
+    MyUserLogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,7 +41,10 @@ urlpatterns = [
 
     path('about/', about_view),
 
-    # path('add-to-wishlist/', add_to_favorite_list, name='add_to_favorite'),
+    path('register/', UserCreateView.as_view(), name='register'),
+
+    path('login/', AuthView.as_view(), name='login'),
+    path('logout/', MyUserLogoutView.as_view(), name='logout'),
 
 ]
 

@@ -13,8 +13,10 @@ from .models import Pictures, PictureUpgrade
 from .tasks import save_pictures_task
 from django.core.mail import send_mail
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .forms import PictureForm, PictureFormUpgrade
+from .forms import PictureForm, PictureFormUpgrade, MyUserCreationForm
 from django.template.defaulttags import register
+from .models import MyUser
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 @register.filter
@@ -28,8 +30,10 @@ def get_range(value):
 class PictureListView(ListView):
     model = Pictures
     template_name = 'picpart/index.html'
-    # добавить пагинацию на странице
-    # paginate_by = 10
+
+    def get_queryset(self):
+        print(self.request.user)
+        return Pictures.objects.filter(user=self.request.user.id)
 
 
 class PictureDetailView(DetailView):
@@ -41,7 +45,6 @@ class PictureUpdateView(UpdateView):
     model = Pictures
     template_name = 'picpart/edit.html'
     success_url = '/'
-    # fields = '__all__'
     form_class = PictureForm
 
 
@@ -51,6 +54,10 @@ class PictureCreateView(CreateView):
     success_url = '/'
     # fields = '__all__'
     form_class = PictureForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class PictureDeleteView(DeleteView):
@@ -63,6 +70,10 @@ class FavoriteView(ListView):
     model = PictureUpgrade
     template_name = 'picpart/favorite.html'
     success_url = '/'
+
+    def get_queryset(self):
+        print(self.request.user)
+        return PictureUpgrade.objects.filter(picture__user__id=self.request.user.id)
 
 
 class PictureUpgradeDeleteView(DeleteView):
@@ -143,11 +154,20 @@ class PicturePreviewDetailView(UpdateView):
 # добавить в фильр пользователя
 # https://question-it.com/questions/1009945/dobavlenie-tovarov-v-spisok-zhelanij-dzhango
 
-def add_to_favorite_list(request):
-    if request.is_ajax() and request.POST and 'attr_id' in request.POST:
-        picture = PictureUpgrade.objects.get(pk=int(request.POST['attr_id']))
-        if picture.exists() and picture.favorite == 0:
-            picture.first = 1
+class UserCreateView(CreateView):
+    model = MyUser
+    template_name = 'users/create.html'
+    success_url = '/'
+    form_class = MyUserCreationForm
+
+
+class AuthView(LoginView):
+    template_name = 'users/login.html'
+    success_url = '/'
+
+
+class MyUserLogoutView(LogoutView):
+    pass
 
 
 '''На функциях'''

@@ -1,6 +1,7 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User, Group, AbstractUser
 
 
 # Create your models here.
@@ -9,6 +10,7 @@ class Pictures(models.Model):
     size = models.CharField(max_length=20)
     content = models.ImageField(upload_to='picpart', blank=True, null=True)
     tune = models.CharField(max_length=100)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
 class PictureInfo(models.Model):
@@ -29,4 +31,8 @@ class PictureUpgrade(models.Model):
                                              validators=[MaxValueValidator(2000), MinValueValidator(100)])
     hard = models.PositiveSmallIntegerField(default=0, blank=False, null=False,
                                             validators=[MaxValueValidator(100), MinValueValidator(0)])
-    favorite = models.NullBooleanField(default=False, blank=True, null=True)
+    favorite = models.BooleanField(default=False, blank=True, null=True)
+
+
+class MyUser(AbstractUser):
+    age = models.PositiveIntegerField(default=18)

@@ -1,6 +1,7 @@
 from django import forms
 
-from .models import Pictures, PictureUpgrade
+from .models import Pictures, PictureUpgrade, MyUser
+from django.contrib.auth.forms import UserCreationForm
 
 
 class PictureForm(forms.ModelForm):
@@ -67,3 +68,28 @@ class PictureFormUpgrade(forms.ModelForm):
     class Meta:
         model = PictureUpgrade
         fields = ('name', 'size_part', 'color_limit', 'width', 'hard', 'favorite')
+
+
+class MyUserCreationForm(UserCreationForm):
+    username = forms.CharField(help_text='Имя',
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'width:400px'}),
+                               label='',
+                               )
+    email = forms.EmailField(help_text='Почта',
+                             widget=forms.EmailInput(attrs={'class': 'form-control', 'style': 'width:400px'}),
+                             label='',
+                             )
+    password1 = forms.CharField(help_text='Пароль',
+                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'style': 'width:100px'}),
+                               label='',
+                               )
+    password2 = forms.CharField(help_text='Пароль еще раз',
+                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'style': 'width:100px'}),
+                                label='',
+                                )
+
+    class Meta:
+        model = MyUser
+        fields = ('username', 'email', 'password1', 'password2')
+
+
