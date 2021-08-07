@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% block title %}
-     <br>
-    <div>
+    <div class="m-2">
          <a href="/" class="button"><span class="badge bg-secondary">К моим рисункам </span></a>
          <a href="/picpart/delete/{{object.pk}}/" class="button"><span class="badge bg-secondary">Удалить</span></a>
          <a href="/picpart/edit/{{object.pk}}/" class="button"><span class="badge bg-secondary">Изменить </span></a>
     </div>
-    <br>
 {% endblock %}
 
 {% block content %}
@@ -46,14 +44,15 @@
                </a>
              </div>
 
-
              <div class="container">
                  <ul class="list-inline">
+                  <li class="list-inline-item" style="..."><a href="/picpart/preview_picture/{{ pictupd.pk }}" class="button"><span class="badge bg-success">Правка</span></a></li>
+                  <li class="list-inline-item" style="..."><a href="/picpart/action/{{ pictupd.pk }}" class="button"><span class="badge bg-secondary">Решать</span></a></li>
                   <li class="list-inline-item" style="color:#827575"> Ячейка: {{pictupd.size_part}}</li>
                   <li class="list-inline-item" style="color:#827575"> Сложность: {{pictupd.hard}}</li>
                   <li class="list-inline-item" style="color:#827575"> Ширина: {{pictupd.width}}</li>
                   <li class="list-inline-item" style="color:#827575"> Порог: {{pictupd.color_limit}}</li>
-                  <li class="list-inline-item" style="color:#827575">
+
                 </ul>
             </div>
 

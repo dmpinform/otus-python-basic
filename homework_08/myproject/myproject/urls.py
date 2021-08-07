@@ -20,7 +20,7 @@ from django.conf import settings
 from picpart.views import index_view, detail_view, about_view, PictureListView, \
     PictureDetailView, PictureUpdateView, PictureDeleteView, PictureCreateView, PictureUpgradeCreateView, \
     PicturePreviewDetailView, PictureUpgradeDeleteView, register, FavoriteView, UserCreateView, AuthView,\
-    MyUserLogoutView
+    MyUserLogoutView, ActionView, update_state
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,6 +40,9 @@ urlpatterns = [
     path('favorite/', FavoriteView.as_view(), name="favorite"),
 
     path('about/', about_view),
+
+    path('picpart/action/<int:pk>/', ActionView.as_view()),
+    path('picpart/update_state/', update_state),
 
     path('register/', UserCreateView.as_view(), name='register'),
 

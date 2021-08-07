@@ -33,6 +33,12 @@ class PictureUpgrade(models.Model):
                                             validators=[MaxValueValidator(100), MinValueValidator(0)])
     favorite = models.BooleanField(default=False, blank=True, null=True)
 
+    x = models.JSONField(default=list, null=True)
+    y = models.JSONField(default=list, null=True)
+    answers = models.JSONField(default=list, null=True)
+    size = models.JSONField(default=list, null=True)
+    state = models.JSONField(default=list, null=True)
+
 
 class MyUser(AbstractUser):
     age = models.PositiveIntegerField(default=18)

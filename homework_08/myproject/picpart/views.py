@@ -1,6 +1,8 @@
+import json
+
 from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
@@ -72,8 +74,14 @@ class FavoriteView(ListView):
     success_url = '/'
 
     def get_queryset(self):
-        print(self.request.user)
+        # print(self.request.user)
         return PictureUpgrade.objects.filter(picture__user__id=self.request.user.id)
+
+
+class ActionView(DetailView):
+    model = PictureUpgrade
+    template_name = 'picpart/action.html'
+    success_url = '/'
 
 
 class PictureUpgradeDeleteView(DeleteView):
@@ -95,9 +103,20 @@ def gen_form(form):
     hard = form.instance.hard
     image = getimage.img(width, intcolor=int_color, cl=size_part, byte_image=BytesIO(file_content), hard=hard)
 
-    # BytesIO(image).getvalue()
+    data = json.loads(image[1])
+    x = data["x"]
+    y = data["y"]
+    answers = data["answers"]
+    size = data["size"]
 
-    image = Image.open(BytesIO(image))
+    form.instance.x = x
+    form.instance.y = y
+    form.instance.answers = answers
+    form.instance.size = size
+    # НУЖНО предупреждение "Сбросится разгадывание"!!!
+    form.instance.state = answers
+
+    image = Image.open(BytesIO(image[0]))
 
     buffer = BytesIO()
     image.save(fp=buffer, format='JPEG')
@@ -168,6 +187,26 @@ class AuthView(LoginView):
 
 class MyUserLogoutView(LogoutView):
     pass
+
+
+def update_state(request):
+    if request.method == 'POST':
+        picture_id = request.POST["id"]
+        picture = PictureUpgrade.objects.get(pk=picture_id)
+
+        state = set(picture.state)
+        cell = int(request.POST["cell"])
+
+        if cell in state:
+            state.remove(cell)
+        else:
+            state.add(cell)
+
+        picture.state = list(state)
+        picture.save()
+
+        return HttpResponse(200)
+    return HttpResponse(404)
 
 
 '''На функциях'''

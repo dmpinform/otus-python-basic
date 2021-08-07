@@ -2,6 +2,10 @@
 /*https://www.tune-it.ru/web/leksa/blog/-/blogs/1996258*/
 
 
+#myCanvas{
+    border: 1px solid #808088;
+}
+
 .wrapper {
   width: 200px;
   height: 200px;
