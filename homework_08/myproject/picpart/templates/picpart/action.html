@@ -17,12 +17,24 @@
      let cw = data[0];
      let ch = data[1];
 
+     let part = {{object.size_part}};
+
      let text_x = JSON.parse("{{object.x}}");
      let text_y = JSON.parse("{{object.y}}");
 
-     let part = {{object.size_part}};
+     let answers = JSON.parse("{{object.answers}}");
+
+     let dx = getDelta(text_x);
+     let dy = getDelta(text_y);
+
+     let max_cw=(cw+dx)*part
+     let max_ch= (ch+dy)*part
 
      let state = JSON.parse("{{object.state}}");
+
+     function getDelta(text_list) {
+         return Math.max.apply(Math, text_list.map(function (el) { return el.length }));
+     }
 
      function getSquare(canvas, evt) {
         let rect = canvas.getBoundingClientRect();
@@ -33,17 +45,36 @@
     }
 
     function drawGrid(context) {
-        canvas.width = cw*part
-        canvas.height = ch*part
-
-        for (let x = 0.5; x < cw*part + 1; x += part) {
+        canvas.width = max_cw
+        canvas.height = max_ch
+        let sch = 0
+        for (let x = 0.5; x < max_cw + 1; x += part) {
           context.moveTo(x, 0);
-          context.lineTo(x, ch*part );
+          context.lineTo(x, max_ch );
+
+              if (getCell(x)>=dx && sch<cw){
+                  for (let tx = 0; tx<text_y[sch].length; tx+=1){
+                      context.font = "10px serif";
+                      context.textBaseline = "hanging";
+                      context.strokeText(text_y[sch][tx], x+part/4, part*(dx-tx-3/4));
+                   }
+                 sch += 1;
+              }
         }
 
-        for (let y = 0.5; y < ch*part + 1; y += part) {
+        sch = 0;
+        for (let y = 0.5; y < max_ch + 1; y += part) {
           context.moveTo(0, y);
-          context.lineTo(cw*part, y);
+          context.lineTo(max_cw, y);
+
+          if (getCell(y)>=dy && sch<ch){
+                  for (let tx = 0; tx<text_x[sch].length; tx+=1){
+                      context.font = "10px serif";
+                      context.textBaseline = "hanging";
+                      context.strokeText(text_x[sch][tx], part*(dy-tx-3/4), y+part/4);
+                   }
+                 sch += 1;
+              }
         }
 
         context.strokeStyle = "#ddd";
@@ -52,31 +83,63 @@
 
     let canvas = document.getElementById('myCanvas');
     let context = canvas.getContext('2d');
-    let csrftoken = '{{ csrf_token }}'
+    let csrf_token = '{{ csrf_token }}'
 
-     function fillSquare(context, x, y){
+     function fillSquare(context, x, y) {
 
-         let cell = Math.floor(y / part) * cw + Math.floor(x / part)
+        let color = context.getImageData(x, y, 1, 1)[3];
 
-         $.ajax({
+        if (getCell(y) >= dy && getCell(x) >= dx) {
+             let cell = getNumCell(x,y)
+             $.ajax({
                  url: '/picpart/update_state/',
-                 headers:{'X-CSRFToken':csrftoken},
+                 headers: {'X-CSRFToken': csrf_token},
                  data: {'id': '{{ object.id }}', 'cell': cell},
                  type: 'POST'
-               }).done(function(response){
+             }).done(function (response) {
                  //alert(response)
-               });
+             });
 
-        context.fillStyle = "black"
-        context.fillRect(x,y,part-1,part-1);
+            let color =context.getImageData(x, y, 1, 1).data;
+            if ((color[0]===color[1] && color[1]===color[2] && color[2]===color[3] && color[3] === 0) ||
+                (color[0]===color[1] && color[1]===color[2] && color[2]===255)) {
+                context.fillStyle = "black"
+            }
+            else
+                 context.fillStyle = "white"
+
+             context.fillRect(x-0.5, y-0.5, part, part);
+         }
+    }
+
+    function loadState(context){
+          for (let x = 0; x < state.length; x += 1){
+               let coord = getCoordCell(state[x])
+               context.fillRect(coord[0]+0.5, coord[1]+0.5, part, part);
+          }
     }
 
     drawGrid(context);
+    loadState(context);
 
     canvas.addEventListener('click', function(evt) {
         let mousePos = getSquare(canvas, evt);
         fillSquare(context, mousePos.x, mousePos.y)
     }, false);
+
+    function getCell(coord){
+        return Math.floor(coord / part)
+    }
+
+    function getNumCell(x,y){
+       return getCell(y-dy*part) * cw + getCell(x-dx*part)
+    }
+
+     function getCoordCell(num_cell){
+        let nx = dx*part+ (num_cell % cw) * part
+        let ny = dy*part+ (Math.floor(num_cell/cw)) * part
+       return [nx, ny]
+    }
 
 
 </script>
