@@ -1,8 +1,42 @@
 {% extends "base.html" %}
 {% block title %}
-    О проекте
+       <div class="m-2">
+        <h5>  </h5>
+    </div>
 {% endblock %}
 
 {% block content %}
-       Описание проекта, инструкция
+     <div class="list-group">
+  <a class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h6 class="mb-3">Функционал</h6>
+      <small></small>
+    </div>
+    <p class="mb-1">Сохранить картинки</p>
+      <p class="mb-1">Обработать картинку фильтром и сохранить</p>
+      <p class="mb-1">Разгадать японский кросворд</p>
+    <small></small>
+  </a>
+
+  <a class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h6 class="mb-3">Назначение</h6>
+      <small class="text-muted"></small>
+    </div>
+    <p class="mb-1">Проект создавался в обучающих целях.</p>
+    <small class="text-muted"></small>
+  </a>
+
+  <a  class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h6 class="mb-3">Развитие</h6>
+      <small class="text-muted"></small>
+    </div>
+    <p class="mb-1">Добавить стили</p>
+    <p class="mb-1">Добавить другие обработчики картинок</p>
+    <p class="mb-1">Добавить обработку файлов: pdf, excel, word</p>
+    <small class="text-muted"></small>
+  </a>
+
+</div>
 {% endblock %}

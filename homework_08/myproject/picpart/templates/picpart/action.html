@@ -2,6 +2,7 @@
 {% block title %}
     <div class="m-2">
          <a href="/" class="button"><span class="badge bg-secondary">К моим рисункам </span></a>
+         <a href="/picpart/{{ object.picture_id }}" class="button"><span class="badge bg-secondary">Назад </span></a>
          <a href="#" class="button" onclick = "ajax_set_cells()" > <span class="badge bg-success">Сохранить </span></a>
     </div>
 {% endblock %}
