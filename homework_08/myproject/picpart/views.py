@@ -19,7 +19,7 @@ from .forms import PictureForm, PictureFormUpgrade, MyUserCreationForm
 from django.template.defaulttags import register
 from .models import MyUser
 from django.contrib.auth.views import LoginView, LogoutView
-
+from loguru import logger
 
 @register.filter
 def get_range(value):
@@ -195,12 +195,13 @@ def update_state(request):
         picture = PictureUpgrade.objects.get(pk=picture_id)
 
         state = set(picture.state)
-        cell = int(request.POST["cell"])
+        cell = set(json.loads(request.POST["cell"]))
 
-        if cell in state:
-            state.remove(cell)
-        else:
-            state.add(cell)
+        for ce in cell:
+            if ce in state:
+                state.remove(ce)
+            else:
+                state.add(ce)
 
         picture.state = list(state)
         picture.save()
@@ -210,7 +211,6 @@ def update_state(request):
 
 
 '''На функциях'''
-
 
 def index_view(request):
     pictures = Pictures.objects.all()

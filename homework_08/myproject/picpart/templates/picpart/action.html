@@ -2,6 +2,7 @@
 {% block title %}
     <div class="m-2">
          <a href="/" class="button"><span class="badge bg-secondary">К моим рисункам </span></a>
+         <a href="#" class="button" onclick = "ajax_set_cells()" > <span class="badge bg-success">Сохранить </span></a>
     </div>
 {% endblock %}
 
@@ -56,7 +57,7 @@
                   for (let tx = 0; tx<text_y[sch].length; tx+=1){
                       context.font = "10px serif";
                       context.textBaseline = "hanging";
-                      context.strokeText(text_y[sch][tx], x+part/4, part*(dx-tx-3/4));
+                      context.strokeText(text_y[sch][tx], x+part/4, part*(dy-tx-3/4));
                    }
                  sch += 1;
               }
@@ -71,7 +72,7 @@
                   for (let tx = 0; tx<text_x[sch].length; tx+=1){
                       context.font = "10px serif";
                       context.textBaseline = "hanging";
-                      context.strokeText(text_x[sch][tx], part*(dy-tx-3/4), y+part/4);
+                      context.strokeText(text_x[sch][tx], part*(dx-tx-3/4), y+part/4);
                    }
                  sch += 1;
               }
@@ -84,21 +85,33 @@
     let canvas = document.getElementById('myCanvas');
     let context = canvas.getContext('2d');
     let csrf_token = '{{ csrf_token }}'
+    let buffer_answer=[]
 
-     function fillSquare(context, x, y) {
+     function setBufferCell(cell){
+         let index = buffer_answer.indexOf(cell);
+          if (index > -1)
+             buffer_answer.splice(index, 1);
+          else
+             buffer_answer.push(cell)
+     }
 
-        let color = context.getImageData(x, y, 1, 1)[3];
-
-        if (getCell(y) >= dy && getCell(x) >= dx) {
-             let cell = getNumCell(x,y)
+     function ajax_set_cells(){
              $.ajax({
                  url: '/picpart/update_state/',
                  headers: {'X-CSRFToken': csrf_token},
-                 data: {'id': '{{ object.id }}', 'cell': cell},
+                 data: {'id': '{{ object.id }}', 'cell': JSON.stringify(buffer_answer)},
                  type: 'POST'
              }).done(function (response) {
-                 //alert(response)
+                 buffer_answer=[]
              });
+     }
+
+     function fillSquare(context, x, y) {
+
+        if (getCell(y) >= dy && getCell(x) >= dx) {
+
+            // копим ответы для отправки по таймеру
+            setBufferCell(getNumCell(x,y));
 
             let color =context.getImageData(x, y, 1, 1).data;
             if ((color[0]===color[1] && color[1]===color[2] && color[2]===color[3] && color[3] === 0) ||
@@ -107,7 +120,6 @@
             }
             else
                  context.fillStyle = "white"
-
              context.fillRect(x-0.5, y-0.5, part, part);
          }
     }
@@ -140,6 +152,7 @@
         let ny = dy*part+ (Math.floor(num_cell/cw)) * part
        return [nx, ny]
     }
+
 
 
 </script>
